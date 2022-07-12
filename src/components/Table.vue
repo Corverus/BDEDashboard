@@ -54,17 +54,14 @@ export default {
         axios.get(`https://gitlab.com/api/v4/projects/${ids[x]}/pipelines`).then(resp => {
           for (let y = 0; y < resp.data.length; y++) {
             axios.get(`https://gitlab.com/api/v4/projects/${ids[x]}/pipelines/${resp.data[y].id}`).then(res => {
-              console.log(JSON.stringify(res.data.status))
-              console.log(res.data.status)
-              console.log(res.data.ref)
-              console.log(res.data.user.name)
+              console.log(res.data)
               this.projects.push(
                   {
                     name: 'Project'+ y,
-                    id: resp.data.id,
-                    status: JSON.stringify(resp.data.status),
-                   // user: resp.data.user.name,
-                    branch: JSON.stringify(resp.data.ref)
+                    id: res.data.id,
+                    status: res.data.status,
+                    user: res.data.user.name,
+                    branch: res.data.ref
                   }
               )
             })
